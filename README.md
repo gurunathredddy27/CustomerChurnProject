@@ -20,7 +20,7 @@ Key Features
 ✅ API Deployment using FastAPI + Uvicorn
 ✅ Containerization using Docker
 ✅ Ready for integration with web apps or dashboards
-
+```
 ### Project Structure
 Customer-Churn-Project/
 │
@@ -52,6 +52,7 @@ Customer-Churn-Project/
 ├── requirements.txt              # All dependencies
 ├── README.md                     # Project documentation
 └── .dockerignore / .gitignore
+```
 
 ## Quick start (manual dataset)
 1. Download `Telco-Customer-Churn.csv` 
