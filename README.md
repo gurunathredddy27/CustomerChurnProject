@@ -62,27 +62,79 @@ Customer-Churn-Project/
 python -m venv .venv
 source .venv/bin/activate # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
+```
+How It Works
+1️⃣ Data Preprocessing (data_processing.py)
 
-## Notes & Next steps 
-Place the CSV in data/raw/ before running src/train.py.
+Handles missing values, encodes categorical columns, and ensures data consistency.
 
-The src/features.py preprocessor expects the full set of raw CSV columns; the Streamlit example sends a minimal set and uses defaults — for production, create a contract and validate fields.
+Converts Yes/No features to binary (1/0).
 
-For production readiness: wrap preprocessing and model into a single sklearn Pipeline (already done in src/train.py) and add input validation.
+One-hot encodes service types, contract, and payment methods.
 
-If you want, I can now:
+2️⃣ Feature Engineering (features.py)
 
-run training here and show model met 
+Splits data into features (X) and labels (y).
+
+Selects key predictors for the churn model.
+
+3️⃣ Model Training (train.py)
+
+Loads and preprocesses the data.
+
+Trains a Random Forest Classifier.
+
+Evaluates it using AUC and classification metrics.
+
+Saves the model as best_rf.pkl.
+
+4️⃣ Model Prediction (predict.py)
+
+Loads the saved model and predicts churn on new data samples.
+
+5️⃣ Model Serving via API (api/app.py)
+
+A FastAPI endpoint exposes /predict to accept customer data in JSON format and return churn probability.
+
+Example Request:
+``` bash
+{
+    "tenure": 5,
+    "MonthlyCharges": 70.3,
+    "TotalCharges": 350.5,
+    "Contract_Two year": 0,
+    "InternetService_Fiber optic": 1
+}
+```
+
+Example Response:
+``` bash
+{
+    "Churn_Probability": 0.78,
+    "Churn_Prediction": "Yes"
+}
+```
+6️⃣ Containerization (Docker)
+
+The Dockerfile builds the entire app with dependencies.
+
+Run the following commands:
+```
+# Build Docker image
+docker build -t churn-prediction-app .
+
+# Run container
+docker run -d -p 8501:8501 churn-prediction-app
+```
+
+Once running, the API will be accessible at:
+👉 http://localhost:8501/docs
 
 ## Business Recommendations
-Based on model insights:
+- Based on model insights:
 
-Offer Loyalty Programs to customers with short tenure (< 6 months).
-
-Reduce Monthly Charges or introduce bundled offers for high-charge users.
-
-Improve Support for users lacking TechSupport or OnlineSecurity.
-
-Target Fiber-Optic Customers who show higher churn risk.
-
-Encourage Long-Term Contracts, as two-year customers churn less.
+- Offer Loyalty Programs to customers with short tenure (< 6 months).
+- Reduce Monthly Charges or introduce bundled offers for high-charge users.
+- Improve Support for users lacking TechSupport or OnlineSecurity.
+- Target Fiber-Optic Customers who show higher churn risk.
+- Encourage Long-Term Contracts, as two-year customers churn less.
