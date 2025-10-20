@@ -14,12 +14,12 @@ This project aims to:
 
 Key Features
 
-✅ Data Cleaning and Preprocessing using Pandas
-✅ Model Training using Random Forest Classifier
-✅ Model Evaluation using AUC, Accuracy, Precision, Recall, and F1-Score
-✅ API Deployment using FastAPI + Uvicorn
-✅ Containerization using Docker
-✅ Ready for integration with web apps or dashboards
+- ✅ Data Cleaning and Preprocessing using Pandas
+- ✅ Model Training using Random Forest Classifier
+- ✅ Model Evaluation using AUC, Accuracy, Precision, Recall, and F1-Score
+- ✅ API Deployment using FastAPI + Uvicorn
+- ✅ Containerization using Docker
+- ✅ Ready for integration with web apps or dashboards
 ```
 ### Project Structure
 Customer-Churn-Project/
@@ -63,7 +63,7 @@ python -m venv .venv
 source .venv/bin/activate # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
-How It Works
+### How It Works
 1️⃣ Data Preprocessing (data_processing.py)
 
 Handles missing values, encodes categorical columns, and ensures data consistency.
